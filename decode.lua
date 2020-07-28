@@ -1,52 +1,55 @@
---git ssh test--
+--[[
+TIPS:
+1 ÌìÊéÐèÒªÊäÈëÍêÕû£¬¼´ÍâÎ§µÄ°üÎ§µÄ·ûºÅÈ«²¿¶¼ÐèÒª¡£
+]]--
 
-local allColde = {'é›¶', 'ä¸€', 'äºŒ', 'ä¸‰', 'å››', 'äº”', 'å…­', 'ä¸ƒ', 'å…«', 'ä¹', 'å', 'ç™¾', 'åƒ', 'ä¸‡', 'äº¿', 'å£¹', 'è´°', 'å', 'è‚†', 'ä¼', 'é™†', 'æŸ’', 'æŒ', 'çŽ–', 'æ‹¾', 'ä½°', 'ä»Ÿ', 'ç‚¹', 'å¤©', 'å¹´', 'æ—¶', 'è¾°', 'æ­¦', 'å­¦', 'é“', 'è¡Œ', 'æ½œ', 'èƒ½', 'å¥–', 'ç›’', 'â–¡', 'æŸ', 'å‡ ', 'ä¹Ž', 'æ˜¯', 'åŠ ', 'å‡', 'ä¹˜', 'é™¤'}
-local upperDigit = {'é›¶', 'ä¸€', 'äºŒ', 'ä¸‰', 'å››', 'äº”', 'å…­', 'ä¸ƒ', 'å…«', 'ä¹', 'å', 'ç™¾', 'åƒ', 'ä¸‡', 'äº¿'}
-local chineseDigit = {'é›¶', 'å£¹', 'è´°', 'å', 'è‚†', 'ä¼', 'é™†', 'æŸ’', 'æŒ', 'çŽ–', 'æ‹¾', 'ä½°', 'ä»Ÿ', 'ä¸‡', 'äº¿'}
+local allColde = {'Áã', 'Ò»', '¶þ', 'Èý', 'ËÄ', 'Îå', 'Áù', 'Æß', '°Ë', '¾Å', 'Ê®', '°Ù', 'Ç§', 'Íò', 'ÒÚ', 'Ò¼', '·¡', 'Èþ', 'ËÁ', 'Îé', 'Â½', 'Æâ', '°Æ', '¾Á', 'Ê°', '°Û', 'Çª', 'µã', 'Ìì', 'Äê', 'Ê±', '³½', 'Îä', 'Ñ§', 'µÀ', 'ÐÐ', 'Ç±', 'ÄÜ', '½±', 'ºÐ', '¡õ', 'Ä³', '¼¸', 'ºõ', 'ÊÇ', '¼Ó', '¼õ', '³Ë', '³ý'}
+local upperDigit = {'Áã', 'Ò»', '¶þ', 'Èý', 'ËÄ', 'Îå', 'Áù', 'Æß', '°Ë', '¾Å', 'Ê®', '°Ù', 'Ç§', 'Íò', 'ÒÚ'}
+local chineseDigit = {'Áã', 'Ò¼', '·¡', 'Èþ', 'ËÁ', 'Îé', 'Â½', 'Æâ', '°Æ', '¾Á', 'Ê°', '°Û', 'Çª', 'Íò', 'ÒÚ'}
 local lowerDigit = {'', '', '', '', '', '', '', '', '', ''}
-local unitChar = {'ç‚¹', 'å¤©', 'å¹´', 'æ—¶è¾°'}
-local gainChar = {'æ­¦', 'å­¦', 'é“', 'è¡Œ', 'æ½œ', 'èƒ½'}
---[[æ­¦å­¦pattern
+local unitChar = {'µã', 'Ìì', 'Äê', 'Ê±³½'}
+local gainChar = {'Îä', 'Ñ§', 'µÀ', 'ÐÐ', 'Ç±', 'ÄÜ'}
+--[[ÎäÑ§pattern
 ]]--
 --[[
-åºŸè¯:å‡ ä¹Žï¼Œå‡ (ç»Ÿç»Ÿå–äº”)ï¼ŒæŸ(ç»Ÿç»Ÿå–äº”)
-å¥–ç›’äºŒâ–¡å¤šäºŽå››ç™½å‡å‡ ä¹Žæ˜¯ä¸€ç™¾ç‚¹æ½œèƒ½
-å¥–ç›’ä¸€â–¡åå‡ åŠ ä¸Šè´Ÿçš„å‡ å¹´äºŒç™¾å››åå…«å¤©å…­æ—¶è¾°é“è¡Œ
-å¥–ç›’ä¸‰â–¡ä¸ƒæŸæŸç‚¹æ­¦å­¦
-å¥–ç›’ä¸€â–¡å…­åä¸€å¤©å…­æ—¶è¾°é“è¡Œ
+·Ï´Ê:¼¸ºõ£¬¼¸(Í³Í³È¡Îå)£¬Ä³(Í³Í³È¡Îå)
+½±ºÐ¶þ¡õ¶àÓÚËÄ°×¼õ¼¸ºõÊÇÒ»°ÙµãÇ±ÄÜ
+½±ºÐÒ»¡õÊ®¼¸¼ÓÉÏ¸ºµÄ¼¸Äê¶þ°ÙËÄÊ®°ËÌìÁùÊ±³½µÀÐÐ
+½±ºÐÈý¡õÆßÄ³Ä³µãÎäÑ§
+½±ºÐÒ»¡õÁùÊ®Ò»ÌìÁùÊ±³½µÀÐÐ
 ]]--
-local dat1 = [[
-â€¦               å¥–                                                                â€¦
-â€¦                ç›’                                             å¥–                â€¦
-â€¦            å¥–   ä¸€  å¥–                                å¥–      ç›’                â€¦
-â€¦            ç›’   â–¡  ç›’                               ç›’       å››                â€¦
-â€¦           å››    æŸ  ä¸‰                               ä¸€    å¥–å¥–                 â€¦
-â€¦           â–¡   å¥–ç›’å››â–¡åä¸€ä¸¤é»„é‡‘äº”ä¸¤ç™½é“¶            â–¡       ç›’                â€¦
-â€¦                                                     è´Ÿ         ä¸€               â€¦
-â€¦å¥–       å¥–         å¥–                              è¾°     å¥–   â–¡           å¥–  â€¦
-â€¦ç›’        ç›’         ç›’                             é“   å¥–ç›’   å››          å¥–   â€¦
-â€¦ä¸‰        ä¸‰         ä¸€                            æ­¦   ç›’  ä¸‰   åƒ          ç›’  â€¦
-â€¦â–¡        â–¡          â–¡      å¥–                   â–¡  å››    â–¡  å››  å¥–       å¥– â€¦
-â€¦å››         å››          ä¸ƒ     ç›’                  å  â–¡    å¥–ä¸€  ç™¾          ç›’ â€¦
-â€¦åƒ         åƒ         å¥–  å¥–ç›’ä¸‰â–¡ä¸ƒæŸæŸç‚¹æ­¦å­¦   å  æ°”       äºŒ   å…«          å››â€¦
-â€¦ä¸‰         å…«         ç›’                        å­¦             ä¸€   å           â€¦
-â€¦ç™¾         ç™¾         å››                        è¾°                  ä¸ƒ           â€¦
-â€¦å…«     å¥–   äºŒ        â–¡ å¥–                                         ä¸€  å¥– å¥–    â€¦
-â€¦å     ç›’    å       ä¸‰     å¥–   å¥–                                 ç™¾    ç›’    â€¦
-â€¦å…­     ä¸€    ä¸ƒ       åƒ     ç›’   ç›’                                  é›¶   ä¸€    â€¦
-â€¦äºŒ     â–¡    å       é›¶     äºŒ   å››                å¥–                å››  â–¡     â€¦
-â€¦å     å­¦    ä¸ƒ       å…«  å¥–ç›’ä¸€â–¡å…­åä¸€å¤©å…­æ—¶è¾°é“è¡Œ             å¥–    ä¸ƒ        â€¦
-â€¦   å¥–  æŸ    äº”       å                                        ç›’      å       â€¦
-â€¦  ç›’   å­¦     å      ä¸€                                       ä¸€        ä¸‰      â€¦
-â€¦  ä¸‰   äºŒ      ä¸‰     å…«                          å¥–          â–¡          ä¸¤     â€¦
-â€¦ â–¡    æ—¶       æŸ    å                         å¥–ç›’        æŸ           å­¦   å¥–â€¦
-â€¦ ç‚¹    ä¸€        æ­¦   å››             å¥–            ä¸‰       æ­¦            å­¦   ç›’â€¦
-â€¦ é“    ç›’         å…­  ä¹       å¥–ç›’äºŒâ–¡è´Ÿçš„äºŒæŸæŸæŸç‚¹ç«æ°”  æŸ              ç‚¹  ä¸€â€¦
-â€¦ æŸ               ä¸€  å                                 å¥–å¥–               å…­   â€¦
-â€¦ äº”               å¥–  äºŒ                                  ç™½                 æŸ  â€¦
-â€¦ç›’                ç‚¹  æŸå¥–                å¥–             â–¡               å¥– äºŒ  â€¦
-â€¦ å¥–       å¥–     å¥–   æŸ                 ç›’  å¥–          æŸ                  â–¡  â€¦
-â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦â€¦]]
+local dat1 = [[¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­
+¡­               ½±                                                                ¡­
+¡­                ºÐ                                             ½±                ¡­
+¡­            ½±   Ò»  ½±                                ½±      ºÐ                ¡­
+¡­            ºÐ   ¡õ  ºÐ                               ºÐ       ËÄ                ¡­
+¡­           ËÄ    Ä³  Èý                               Ò»    ½±½±                 ¡­
+¡­           ¡õ   ½±ºÐËÄ¡õÊ®Ò»Á½»Æ½ðÎåÁ½°×Òø            ¡õ       ºÐ                ¡­
+¡­                                                     ¸º         Ò»               ¡­
+¡­½±       ½±         ½±                              ³½     ½±   ¡õ           ½±  ¡­
+¡­ºÐ        ºÐ         ºÐ                             µÀ   ½±ºÐ   ËÄ          ½±   ¡­
+¡­Èý        Èý         Ò»                            Îä   ºÐ  Èý   Ç§          ºÐ  ¡­
+¡­¡õ        ¡õ          ¡õ      ½±                   ¡õ  ËÄ    ¡õ  ËÄ  ½±       ½± ¡­
+¡­ËÄ         ËÄ          Æß     ºÐ                  Ê®  ¡õ    ½±Ò»  °Ù          ºÐ ¡­
+¡­Ç§         Ç§         ½±  ½±ºÐÈý¡õÆßÄ³Ä³µãÎäÑ§   Ê®  Æø       ¶þ   °Ë          ËÄ¡­
+¡­Èý         °Ë         ºÐ                        Ñ§             Ò»   Ê®           ¡­
+¡­°Ù         °Ù         ËÄ                        ³½                  Æß           ¡­
+¡­°Ë     ½±   ¶þ        ¡õ ½±                                         Ò»  ½± ½±    ¡­
+¡­Ê®     ºÐ    Ê®       Èý     ½±   ½±                                 °Ù    ºÐ    ¡­
+¡­Áù     Ò»    Æß       Ç§     ºÐ   ºÐ                                  Áã   Ò»    ¡­
+¡­¶þ     ¡õ    Ê®       Áã     ¶þ   ËÄ                ½±                ËÄ  ¡õ     ¡­
+¡­Ê®     Ñ§    Æß       °Ë  ½±ºÐÒ»¡õÁùÊ®Ò»ÌìÁùÊ±³½µÀÐÐ             ½±    Æß        ¡­
+¡­   ½±  Ä³    Îå       Ê®                                        ºÐ      Ê®       ¡­
+¡­  ºÐ   Ñ§     Ê®      Ò»                                       Ò»        Èý      ¡­
+¡­  Èý   ¶þ      Èý     °Ë                          ½±          ¡õ          Á½     ¡­
+¡­ ¡õ    Ê±       Ä³    Ê®                         ½±ºÐ        Ä³           Ñ§   ½±¡­
+¡­ µã    Ò»        Îä   ËÄ             ½±            Èý       Îä            Ñ§   ºÐ¡­
+¡­ µÀ    ºÐ         Áù  ¾Å       ½±ºÐ¶þ¡õ¸ºµÄ¶þÄ³Ä³Ä³µã»ðÆø  Ä³              µã  Ò»¡­
+¡­ Ä³               Ò»  Ê®                                 ½±½±               Áù   ¡­
+¡­ Îå               ½±  ¶þ                                  °×                 Ä³  ¡­
+¡­ºÐ                µã  Ä³½±                ½±             ¡õ               ½± ¶þ  ¡­
+¡­ ½±       ½±     ½±   Ä³                 ºÐ  ½±          Ä³                  ¡õ  ¡­
+¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­¡­]]
 
 function Split(szFullString, szSeparator)
 	local nFindStartIndex = 1
@@ -130,7 +133,7 @@ local findGainStrPos = function(t1, t2)
     return res
 end
 
---1 æ¨ªå‘  0 ç«–å‘
+--1 ºáÏò  0 ÊúÏò
 local direction = {0,0,0}
 
 local wuxue = findGainStrPos(gainTable[1], gainTable[2])
@@ -157,7 +160,8 @@ end
 local directionFinal = direction[1]
 local wx_result = {}
 findGainStr  = function(inStr, row, column)
-    if ((row == 1) or (column == 1)) then
+-- ËÑË÷µ½±ß½ç¾Í²»Òª¼ÌÐøËÑË÷ÁË
+    if ((row == 1) or (column == 1) or (row == #s) or (colum == #s[1])) then
         -- print (inStr)
         table.insert(wx_result, inStr)
         return
@@ -192,12 +196,12 @@ findGainStr  = function(inStr, row, column)
     end
 end
 
-findGainStr('æ­¦å­¦', wuxue[1][1], wuxue[1][2])
--- findGainStr('é“è¡Œ', daoheng[1][1], daoheng[1][2])
+findGainStr('ÎäÑ§', wuxue[1][1], wuxue[1][2])
+-- findGainStr('µÀÐÐ', daoheng[1][1], daoheng[1][2])
 
 for k,v in ipairs(wx_result) do
     print (k, v)
-    for k1, v1 in string.gmatch(v, 'å¥–ç›’(.*)â–¡(.*)ç‚¹æ­¦å­¦') do 
+    for k1, v1 in string.gmatch(v, '½±ºÐ(.*)¡õ(.*)µãÎäÑ§') do 
         print(k1, v1)
     end
 end
